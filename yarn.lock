@@ -13192,8 +13192,6 @@ __metadata:
     expo-sqlite: "npm:~15.1.4"
     pouchdb-adapter-sqlite-core: "workspace:^"
     typescript: "npm:^5.8.2"
-  peerDependencies:
-    expo-sqlite: ">=11.0.0"
   languageName: unknown
   linkType: soft
 
