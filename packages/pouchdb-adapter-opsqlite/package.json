@@ -13,6 +13,11 @@
     "lib",
     "src"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BingCoke/pouchdb-adapter-sqlite.git"
+  },
+  "homepage": "https://github.com/BingCoke/pouchdb-adapter-sqlite",
   "exports": {
     ".": {
       "default": "./lib/index.js",
@@ -28,7 +33,7 @@
     "database",
     "offline"
   ],
-  "author": "",
+  "author": "bingcoke",
   "license": "MIT",
   "devDependencies": {
     "@op-engineering/op-sqlite": "^11.4.8",

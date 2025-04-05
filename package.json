@@ -16,7 +16,11 @@
     "dev:expo-sqlite": "concurrently 'yarn workspace pouchdb-adapter-expo-sqlite watch'  'yarn dev:core'",
     "prepare": "yarn workspace pouchdb-adapter-sqlite-core build && yarn workspaces foreach --all -p --include 'pouchdb-adapter-*' run build"
   },
-  "packageManager": "yarn@4.7.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BingCoke/pouchdb-adapter-sqlite.git"
+  },
+  "homepage": "https://github.com/BingCoke/pouchdb-adapter-sqlite",
   "devDependencies": {
     "@eslint/js": "^9.23.0",
     "@typescript-eslint/eslint-plugin": "^8.29.0",

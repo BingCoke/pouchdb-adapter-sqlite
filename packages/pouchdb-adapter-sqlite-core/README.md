@@ -27,4 +27,4 @@ yarn add pouchdb-adapter-sqlite-core
 
 ## Notes
 This is not a standalone adapter - it requires a concrete SQLite implementation
-See the [main project README](../../README.md) for more details on attachment handling and common issues.
+See the [main project README](https://github.com/BingCoke/pouchdb-adapter-sqlite/) for more details on attachment handling and common issues.

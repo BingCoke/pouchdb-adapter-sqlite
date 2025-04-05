@@ -38,4 +38,4 @@ const db = new PouchDB('mydb', {
 2. Binary data must be converted to Uint8Array for storage
 3. For React Native usage, additional polyfills may be needed
 
-See the [main project README](../../README.md) for more details on attachment handling and common issues.
+See the [main project README](https://github.com/BingCoke/pouchdb-adapter-sqlite/) for more details on attachment handling and common issues.

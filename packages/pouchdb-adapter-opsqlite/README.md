@@ -40,4 +40,4 @@ const db = new PouchDB('mydb', {
 2. Works with React Native projects
 3. Supports both iOS and Android platforms
 
-See the [main project README](../../README.md) for more details on attachment handling and common issues.
+See the [main project README](https://github.com/BingCoke/pouchdb-adapter-sqlite/) for more details on attachment handling and common issues.

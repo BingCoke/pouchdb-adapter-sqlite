@@ -43,4 +43,4 @@ const db = new PouchDB('mydb', {
 1. Requires `@capacitor-community/sqlite` v5.0.0 or higher
 2. Binary data handling may require custom serialization due to SQLite escaping requirements
 
-See the [main project README](../../README.md) for more details on attachment handling and common issues.
+See the [main project README](https://github.com/BingCoke/pouchdb-adapter-sqlite/) for more details on attachment handling and common issues.

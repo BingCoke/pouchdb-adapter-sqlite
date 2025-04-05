@@ -21,6 +21,11 @@
     "lib",
     "src"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BingCoke/pouchdb-adapter-sqlite.git"
+  },
+  "homepage": "https://github.com/BingCoke/pouchdb-adapter-sqlite",
   "scripts": {
     "build": "tsc",
     "watch": "tsc --watch",
@@ -34,7 +39,7 @@
     "database",
     "offline"
   ],
-  "author": "",
+  "author": "bingcoke",
   "license": "MIT",
   "dependencies": {
     "debug": "^4.3.4",

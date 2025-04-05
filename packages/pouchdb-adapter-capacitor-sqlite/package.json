@@ -29,7 +29,12 @@
     "database",
     "offline"
   ],
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BingCoke/pouchdb-adapter-sqlite.git"
+  },
+  "homepage": "https://github.com/BingCoke/pouchdb-adapter-sqlite",
+  "author": "bingcoke",
   "license": "MIT",
   "devDependencies": {
     "@capacitor-community/sqlite": "^5.0.0",
