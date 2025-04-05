@@ -251,7 +251,9 @@ async function sqliteBulkDocs(
       const res = await db.query(fetchSql, [id, rev]);
       if (res.values && res.values.length > 0) {
         const seq = res.values[0].seq as number;
-        logger.debug(`Encountered constraint error, switching to update: seq=${seq}, id=${id}, rev=${rev}`);
+        logger.debug(
+          `Encountered constraint error, switching to update: seq=${seq}, id=${id}, rev=${rev}`
+        );
         const sql = 'UPDATE ' + BY_SEQ_STORE + ' SET json=?, deleted=? WHERE doc_id=? AND rev=?;';
         const sqlArgs = [json, deletedInt, id, rev];
         await db.run(sql, sqlArgs);

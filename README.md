@@ -25,6 +25,14 @@ Currently supported or planned SQLite implementations:
 - [x] [OP SQLite (@op-engineering/op-sqlite)](https://github.com/OP-Engineering/op-sqlite)
 - [ ] Other SQLite implementations conforming to the interface specification
 
+## Upcoming Features
+
+1. **More Efficient Attachment Handling**  
+   Currently, the adapter uses pouchdb's official adapter-util to first convert data to binary string format. However, some SQLite implementations require converting this binary string to Uint8Array for storage. This creates unnecessary overhead when the input data is already in Uint8Array format. We plan to optimize this conversion pipeline to improve performance.
+
+2. **Extended SQLite Support**  
+   We welcome community contributions through issues and pull requests to add support for additional SQLite implementations. Our roadmap includes expanding compatibility with more SQLite variants.
+
 ## Usage
 
 When creating a PouchDB instance, specify the `adapter` name as `sqlite` and configure the `sqliteImplementation` setting. Make sure to first inject the sqlite-core plugin, followed by the specific SQLite implementation plugin.
@@ -54,7 +62,7 @@ Note: The current process where pouchdb-adapter-util first converts data to bina
 ![att_store](./docs/imags/att_store.png)
 
 ### Attachment Retrieval Flow
-When retrieving an attachment, data is read from SQLite in the format determined by the `serialize` function. The `deserialize` function converts this data back to the required format, which is then processed by either `btoa` or `createBlob`. If these functions aren't provided, default implementations are used (which expect binary string input). 
+When retrieving an attachment, data is read from SQLite in the format determined by the `serialize` function. The `deserialize` function converts this data back to the required format, which is then processed by either `btoa` or `createBlob`. If these functions aren't provided, default implementations are used (which expect binary string input).
 
 Important: `btoa` must return a base64 string, and `createBlob` must return a Blob object! Incorrect return types may cause database replication failures if your application heavily relies on attachment functionality.
 
@@ -87,18 +95,14 @@ export const db = new DB('capp2', {
 ```
 
 Example for expo-sqlite:
-expo-sqlite requires Uint8Array for binary data storage and needs a custom serializer to handle this requirement. Please note that this Uint8Array conversion approach might not be the most efficient solution - it's provided here as a reference implementation that works.
+expo-sqlite requires Uint8Array for binary data storage and needs a custom serializer to handle this requirement.
 ```typescript
 serializer: {
   serialize: (data: string) => {
-    const binary = data;
-    const length = binary.length;
-    const buf = new ArrayBuffer(length);
-    const arr = new Uint8Array(buf);
-    for (let i = 0; i < length; i++) {
-      arr[i] = binary.charCodeAt(i);
-    }
-    return arr;
+    const binary: string = data;
+    const buffer = Buffer.from(binary, 'binary');
+    const array = Uint8Array.from(buffer);
+    return array;
   },
   deserialize: (data: Uint8Array) => data,
 },
@@ -134,7 +138,7 @@ To add support for other SQLite implementations, simply create an adapter that i
 ## Known Issues and Workarounds
 
 ### React Native with PouchDB 9.0.0
-When using this adapter with PouchDB 9.0.0 in React Native, you may encounter errors related to `pouchdb-errors`. 
+When using this adapter with PouchDB 9.0.0 in React Native, you may encounter errors related to `pouchdb-errors`.
 To fix it you just need to patch pouchdb-errors library with this version: https://github.com/pouchdb/pouchdb/blob/master/packages/node_modules/pouchdb-errors/src/index.js
 You can use patch-package for this. https://www.npmjs.com/package/patch-package
 

@@ -18,7 +18,7 @@ export const remoteDB = new Db('http://192.168.0.104:8080/couchdb/ea1', {
   adapter: 'http',
 });
 
-export const db = new Db('example3', {
+export const db = new Db('expo-example3', {
   adapter: 'sqlite',
   sqliteImplementation: 'expo-sqlite',
   btoa: (binary: any) => {
@@ -40,13 +40,9 @@ export const db = new Db('example3', {
   serializer: {
     serialize: (data: any) => {
       const binary: string = data;
-      const length = binary.length;
-      const buf = new ArrayBuffer(length);
-      const arr = new Uint8Array(buf);
-      for (let i = 0; i < length; i++) {
-        arr[i] = binary.charCodeAt(i);
-      }
-      return arr;
+      const buffer = Buffer.from(binary, 'binary');
+      const array = Uint8Array.from(buffer);
+      return array;
     },
     deserialize: (data: any) => {
       return data;
