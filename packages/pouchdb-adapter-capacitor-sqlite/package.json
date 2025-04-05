@@ -1,0 +1,40 @@
+{
+  "name": "pouchdb-adapter-capacitor-sqlite",
+  "version": "1.0.0",
+  "description": "PouchDB adapter using Capacitor SQLite as its data store",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "files": [
+    "lib",
+    "src"
+  ],
+  "exports": {
+    ".": {
+      "default": "./lib/index.js",
+      "types": "./lib/index.d.ts"
+    }
+  },
+  "keywords": [
+    "pouchdb",
+    "plugin",
+    "sqlite",
+    "capacitor",
+    "adapter",
+    "database",
+    "offline"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@capacitor-community/sqlite": "^5.0.0",
+    "@types/pouchdb-core": "^7.0.15",
+    "pouchdb-adapter-sqlite-core": "workspace:^",
+    "typescript": "^5.3.3"
+  }
+}

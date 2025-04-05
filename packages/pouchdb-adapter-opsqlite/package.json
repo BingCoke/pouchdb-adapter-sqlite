@@ -1,0 +1,38 @@
+{
+  "name": "pouchdb-adapter-opsqlite",
+  "version": "1.0.0",
+  "description": "PouchDB adapter using OPSQLite as its data store",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "exports": {
+    ".": {
+      "default": "./lib/index.js",
+      "types": "./lib/index.d.ts"
+    }
+  },
+  "keywords": [
+    "pouchdb",
+    "plugin",
+    "sqlite",
+    "opsqlite",
+    "adapter",
+    "database",
+    "offline"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@op-engineering/op-sqlite": "^11.4.8",
+    "pouchdb-adapter-sqlite-core": "workspace:^",
+    "typescript": "^5.3.3"
+  }
+}

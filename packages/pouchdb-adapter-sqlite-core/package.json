@@ -1,0 +1,55 @@
+{
+  "name": "pouchdb-adapter-sqlite-core",
+  "version": "1.0.0",
+  "description": "PouchDB adapter using SQLite as its data store - core implementation",
+  "main": "./lib/index.js",
+  "exports": {
+    ".": {
+      "default": "./lib/index.js",
+      "types": "./lib/index.d.ts"
+    },
+    "./interface": {
+      "default": "./lib/interfaces.js",
+      "types": "./lib/interfaces.d.ts"
+    },
+    "./util": {
+      "default": "./lib/utils.js",
+      "types": "./lib/utils.d.ts"
+    }
+  },
+  "files": [
+    "lib",
+    "src"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "pouchdb",
+    "plugin",
+    "sqlite",
+    "adapter",
+    "database",
+    "offline"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "debug": "^4.3.4",
+    "events": "^3.3.0",
+    "pouchdb-adapter-utils": "^9.0.0",
+    "pouchdb-binary-utils": "^9.0.0",
+    "pouchdb-errors": "^9.0.0",
+    "pouchdb-json": "^9.0.0",
+    "pouchdb-merge": "^9.0.0",
+    "pouchdb-utils": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/debug": "^4.1.8",
+    "@types/events": "^3",
+    "@types/pouchdb-core": "^7.0.15",
+    "typescript": "^5.3.3"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "name": "pouchdb-adapter-sqlite",
+  "workspaces": [
+    "packages/*",
+    "examples/*"
+  ],
+  "type": "module",
+  "scripts": {
+    "postinstall": "patch-package",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
+    "dev:core": "yarn workspace pouchdb-adapter-sqlite-core watch",
+    "dev:capacitor-sqlite": "concurrently 'yarn workspace pouchdb-adapter-capacitor-sqlite watch'  'yarn dev:core' ",
+    "dev:opsqlite": "concurrently 'yarn workspace pouchdb-adapter-opsqlite watch'  'yarn dev:core'",
+    "dev:expo-sqlite": "concurrently 'yarn workspace pouchdb-adapter-expo-sqlite watch'  'yarn dev:core'",
+    "prepare": "yarn workspace pouchdb-adapter-sqlite-core build && yarn workspaces foreach --all -p --include 'pouchdb-adapter-*' run build"
+  },
+  "packageManager": "yarn@4.7.0",
+  "devDependencies": {
+    "@eslint/js": "^9.23.0",
+    "@typescript-eslint/eslint-plugin": "^8.29.0",
+    "@typescript-eslint/parser": "^8.29.0",
+    "concurrently": "^9.1.2",
+    "eslint": "^9.23.0",
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-plugin-prettier": "^5.2.6",
+    "eslint-plugin-react": "^7.37.4",
+    "lerna": "^8.2.1",
+    "patch-package": "^8.0.0",
+    "postinstall-postinstall": "^2.1.0",
+    "prettier": "^3.5.3",
+    "typescript-eslint": "^8.29.0"
+  }
+}

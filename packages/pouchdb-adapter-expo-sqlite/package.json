@@ -1,0 +1,37 @@
+{
+  "name": "pouchdb-adapter-expo-sqlite",
+  "version": "0.1.0",
+  "description": "PouchDB adapter using Expo SQLite as its data store",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./lib/index.js",
+      "import": "./lib/index.js",
+      "types": "./lib/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch"
+  },
+  "keywords": [
+    "pouchdb",
+    "expo",
+    "sqlite",
+    "react-native"
+  ],
+  "files": [
+    "lib",
+    "src"
+  ],
+  "dependencies": {
+    "expo-sqlite": "~15.1.4"
+  },
+  "devDependencies": {
+    "@types/pouchdb-core": "^7.0.15",
+    "pouchdb-adapter-sqlite-core": "workspace:^",
+    "typescript": "^5.8.2"
+  },
+  "packageManager": "yarn@4.7.0"
+}
