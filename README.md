@@ -117,6 +117,7 @@ React Native has limited Blob support which can cause issues when synchronizing 
 If you don't implement custom Blob construction, you may encounter errors like: `Creating blobs from 'ArrayBuffer' and 'ArrayBufferView' are not supported`
 
 ```typescript
+import { getBlobForArrayBuffer } from 'react-native-blob-jsi-helper';
 createBlob: (binary: string, type: string) => {
   const buffer = Buffer.from(binary, 'binary');
   const blob = getBlobForArrayBuffer(buffer.buffer);
