@@ -34,21 +34,60 @@ Currently supported or planned SQLite implementations:
    We welcome community contributions through issues and pull requests to add support for additional SQLite implementations. Our roadmap includes expanding compatibility with more SQLite variants.
 
 ## Usage
+Install Core First:
+
+```shell
+# install pouchdb
+yarn add pouchdb-core pouchdb-replication pouchdb-adapter-http
+# install sqlite adapter
+yarn add pouchdb-adapter-sqlite-core
+# install specific sqlite implementation
+yarn add pouchdb-adapter-expo-sqlite
+```
+
+Then Install the SQLite Implementation Plugin:
+
+```shell
+# install expo-sqlite plugin
+yarn add pouchdb-adapter-expo-sqlite
+# install capacitor-sqlite plugin
+yarn add pouchdb-adapter-capacitor-sqlite
+# install op-sqlite plugin
+yarn add pouchdb-adapter-op-sqlite
+```
+
 
 When creating a PouchDB instance, specify the `adapter` name as `sqlite` and configure the `sqliteImplementation` setting. Make sure to first inject the sqlite-core plugin, followed by the specific SQLite implementation plugin.
 
 ```typescript
-import PouchDB from 'pouchdb';
-import SqlitePlugin from 'pouchdb-adapter-sqlite-core';
-import ExpoSQLPlugin from 'pouchdb-adapter-expo-sqlite';
+import PouchDB from "pouchdb-core";
+import HttpPouch from "pouchdb-adapter-http";
+import replication from "pouchdb-replication";
+import OPSQLitePlugin from "pouchdb-adapter-opsqlite";
+import SqlitePlugin from "pouchdb-adapter-sqlite-core";
 
-const DB = PouchDB.plugin(SqlitePlugin).plugin(ExpoSQLPlugin);
+const DB = PouchDB.plugin(HttpPouch)
+  .plugin(replication)
+  .plugin(SqlitePlugin)
+  .plugin(OPSQLitePlugin);
+
 
 const db = new DB('example', {
   adapter:'sqlite',
   sqliteImplementation: 'expo-sqlite',
 });
+
+export const remoteDB = new Db("http://192.168.0.104:8080/couchdb/example", {
+  auth: { username: "admin", password: "123456" },
+  adapter: "http",
+});
+
+export const sync = PouchDB.sync(db, remoteDB, { live: true, retry: true });
 ```
+
+## NOTE!!! If you use React Native
+Please check out the end of Readme to see how to resolve issues with React Native and Pouchdb.
+> ***This is not an issue with our library, but rather a compatibility problem between React Native and PouchDB. As you know, React Native operates in its own environment with its own polyfills, and these polyfills do not fully support standard interface definitions sometimes. To resolve these issues, custom adaptations are necessary.***
 
 ## More Examples
 See the example directory for additional usage examples. Database-related code can be found in the db subdirectory.
@@ -90,7 +129,7 @@ Then, in your babel.config.js, add the plugin to swap the crypto, stream and buf
 
 ```js
 module.exports = {
-  presets: ['module:metro-react-native-babel-preset'],
+  ...
   plugins: [
     [
       'module-resolver',
@@ -106,5 +145,15 @@ module.exports = {
   ],
 };
 ```
+
+### Peer Dependencies
+If you are using React Native, you may need to add the following peer dependencies:
+
+```shell
+yarn add react-native-blob-jsi-helper react-native-quick-base64
+```
+
+***Additionally, please review the post-resolution validation details provided by the package manager during dependency installation, as well as the README documentation of the corresponding SQLite implementation library.***
+
 ## Acknowledgments
 Special thanks to @craftzdog for the open-source project: [pouchdb-adapter-react-native-sqlite](https://github.com/craftzdog/pouchdb-adapter-react-native-sqlite). This project is built upon their implementation.

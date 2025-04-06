@@ -28,6 +28,8 @@ const db = new PouchDB('mydb', {
   adapter: 'sqlite',
   sqliteImplementation: 'expo-sqlite',
 });
+
+export const sync = PouchDB.sync(db, remoteDB, { live: true, retry: true });
 ```
 
 ## Configuration Options

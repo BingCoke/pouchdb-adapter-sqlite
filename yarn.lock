@@ -13257,6 +13257,7 @@ __metadata:
   resolution: "pouchdb-adapter-sqlite@workspace:."
   dependencies:
     "@eslint/js": "npm:^9.23.0"
+    "@types/pouchdb-core": "npm:^7.0.15"
     "@typescript-eslint/eslint-plugin": "npm:^8.29.0"
     "@typescript-eslint/parser": "npm:^8.29.0"
     concurrently: "npm:^9.1.2"
@@ -13268,6 +13269,7 @@ __metadata:
     patch-package: "npm:^8.0.0"
     postinstall-postinstall: "npm:^2.1.0"
     prettier: "npm:^3.5.3"
+    react-native-blob-jsi-helper: "npm:^0.3.1"
     typescript: "npm:^5.8.3"
     typescript-eslint: "npm:^8.29.0"
   languageName: unknown
