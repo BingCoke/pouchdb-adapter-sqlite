@@ -18,7 +18,7 @@ export const remoteDB = new Db('http://192.168.0.104:8080/couchdb/ea1', {
   adapter: 'http',
 });
 
-export const db = new Db('expo-example8', {
+export const db = new Db('expo-example', {
   adapter: 'sqlite',
   sqliteImplementation: 'expo-sqlite',
 });

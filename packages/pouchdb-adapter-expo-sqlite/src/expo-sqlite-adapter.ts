@@ -30,8 +30,7 @@ export class ExpoSQLiteAdapter implements SQLiteAdapter {
    * @returns Query result
    */
   async query(sql: string, params: any[] = []): Promise<SQLiteQueryResult> {
-    logger('query sql: %o params %o', sql, params);
-    const resutlSet = await this.db.getAllAsync(sql);
+    const resutlSet = await this.db.getAllAsync(sql, params);
 
     return {
       values: resutlSet || [],
@@ -45,9 +44,7 @@ export class ExpoSQLiteAdapter implements SQLiteAdapter {
    * @returns Execution result
    */
   async run(sql: string, params: any[] = []): Promise<SQLiteExecuteResult> {
-    logger('run sql: %o params', sql);
     const resultSet = await this.db.runAsync(sql, params);
-    logger('run sql: %o success!', sql);
     return {
       changes: {
         changes: resultSet.changes,
@@ -62,7 +59,6 @@ export class ExpoSQLiteAdapter implements SQLiteAdapter {
    * @returns Execution result
    */
   async execute(sql: string): Promise<void> {
-    logger('execute sql: %o params', sql);
     return this.db.execAsync(sql);
   }
 
@@ -71,7 +67,6 @@ export class ExpoSQLiteAdapter implements SQLiteAdapter {
    */
   async beginTransaction(): Promise<void> {
     try {
-      logger('begin transaction');
       await this.execute('BEGIN TRANSACTION');
     } catch (err) {
       console.error('Failed to begin transaction', err);
@@ -84,7 +79,6 @@ export class ExpoSQLiteAdapter implements SQLiteAdapter {
    */
   async commitTransaction(): Promise<void> {
     try {
-      logger('commit transaction');
       await this.execute('COMMIT');
     } catch (err) {
       console.error('Failed to commit transaction', err);
@@ -97,7 +91,6 @@ export class ExpoSQLiteAdapter implements SQLiteAdapter {
    */
   async rollbackTransaction(): Promise<void> {
     try {
-      logger('rollback transaction');
       await this.execute('ROLLBACK');
     } catch (err) {
       console.error('Failed to rollback transaction', err);

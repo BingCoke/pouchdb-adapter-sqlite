@@ -6,7 +6,11 @@ import { MISSING_STUB, createError } from 'pouchdb-errors';
 import { DOC_STORE, BY_SEQ_STORE, ATTACH_STORE, ATTACH_AND_SEQ_STORE } from './constants';
 
 import { select, stringifyDoc, compactRevs, handleSQLiteError, escapeBlob } from './utils';
-import { BinarySerializer, SQLiteDatabase } from './interfaces';
+import {
+  BinarySerializer,
+  SQLiteLoggerAdapter as SQLiteAdapter,
+  SQLiteDatabase,
+} from './interfaces';
 import { logger } from './logger';
 import { preprocessAttachments } from './processAttachment';
 
@@ -78,7 +82,7 @@ async function sqliteBulkDocs(
     throw docInfoErrors[0];
   }
 
-  let db: SQLiteDatabase;
+  let db: SQLiteAdapter;
   const results = new Array(docInfos.length);
   const fetchedDocs = new Map<string, any>();
 
@@ -351,7 +355,9 @@ async function sqliteBulkDocs(
     }
     sql = 'INSERT INTO ' + ATTACH_STORE + ' (digest, body, escaped) VALUES (?,?,?)';
     logger.debug('will run sql:', sql);
-    await db.run(sql, [digest, data, escaped]);
+    await db.run(sql, [digest, data, escaped], {
+      params: [digest, `typeof data is ${data},(this is inject for logger)`, escaped],
+    });
   }
 
   // Preprocess attachments

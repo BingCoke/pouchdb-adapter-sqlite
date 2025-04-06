@@ -35,7 +35,6 @@ export class CapacitorSQLiteAdapter implements SQLiteAdapter {
    */
   async query(sql: string, params: any[] = []): Promise<SQLiteQueryResult> {
     const result = await this.connection.query(sql, params);
-    logger('query sql: %o params', sql, params);
     return {
       values: result.values || [],
     };
@@ -49,7 +48,6 @@ export class CapacitorSQLiteAdapter implements SQLiteAdapter {
    */
   async run(sql: string, params: any[] = []): Promise<SQLiteExecuteResult> {
     const result = await this.connection.run(sql, params, false);
-    logger('run sql: %o params', sql, params);
     return {
       changes: {
         changes: result.changes?.changes,
@@ -65,14 +63,12 @@ export class CapacitorSQLiteAdapter implements SQLiteAdapter {
    */
   async execute(sql: string): Promise<void> {
     await this.connection.execute(sql, false);
-    logger('execute sql: %o params', sql);
   }
 
   /**
    * Begin transaction
    */
   async beginTransaction(): Promise<void> {
-    logger('begin transaction');
     await this.connection.beginTransaction();
   }
 
@@ -80,7 +76,6 @@ export class CapacitorSQLiteAdapter implements SQLiteAdapter {
    * Commit transaction
    */
   async commitTransaction(): Promise<void> {
-    logger('commit transaction');
     await this.connection.commitTransaction();
   }
 
@@ -88,7 +83,6 @@ export class CapacitorSQLiteAdapter implements SQLiteAdapter {
    * Rollback transaction
    */
   async rollbackTransaction(): Promise<void> {
-    logger('rollback transaction');
     await this.connection.rollbackTransaction();
   }
   serializer = escapeSerializer;

@@ -22,8 +22,6 @@ export const serializer: BinarySerializer = {
         });
       });
       return promise;
-      //const buffer = getArrayBufferForBlob(data);
-      //return buffer;
     }
 
     const binary: string = data.toString();

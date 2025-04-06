@@ -33,7 +33,7 @@ import openDatabase, { closeDatabase } from './openDatabase';
 import {
   BinarySerializer,
   OpenDatabaseOptions,
-  SQLiteAdapter,
+  SQLiteLoggerAdapter as SQLiteAdapter,
   SQLiteDatabase,
   TransactionQueue,
 } from './interfaces';
@@ -751,11 +751,11 @@ function SqlPouch(opts: OpenDatabaseOptions, cb: (err: any) => void) {
     callback: (err: any, response?: any) => void
   ) => {
     let res: any;
-    const db: SQLiteDatabase = opts.ctx;
+    const db: SQLiteAdapter = opts.ctx;
     const digest = attachment.digest;
     const type = attachment.content_type;
     const sql = 'SELECT escaped, body AS body FROM ' + ATTACH_STORE + ' WHERE digest=?';
-    db.query(sql, [digest])
+    db.query(sql, [digest], { notlogResult: true })
       .then((result) => {
         if (result.values && result.values.length > 0) {
           const item = result.values[0];

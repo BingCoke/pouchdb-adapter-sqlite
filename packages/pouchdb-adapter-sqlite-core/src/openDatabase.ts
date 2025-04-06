@@ -1,5 +1,6 @@
 import { OpenDatabaseResult, SQLiteImplementationFactory } from './interfaces';
 import { logger } from './logger';
+import { LoggerSqliteAdapterWarpper } from './LoggerAdapter';
 import { TransactionQueue } from './transactionQueue';
 
 // Stores registered SQLite implementation factories
@@ -61,6 +62,9 @@ export async function openDatabase(options: any): Promise<OpenDatabaseResult> {
     logger.debug(`Opening database: ${options.name} (using ${implementationName} implementation)`);
     const result = await factory.openDatabase(options);
     if ('db' in result) {
+      const db = result.db;
+      // warrper it with logger adapter
+      result.db = new LoggerSqliteAdapterWarpper(db);
       if (!result.transactionQueue) result.transactionQueue = new TransactionQueue(result.db);
     }
 

@@ -22,6 +22,7 @@ export interface SQLiteExecuteResult {
 }
 
 export type SQLiteAdapter = AttachementProcessor & SQLiteDatabase;
+export type SQLiteLoggerAdapter = AttachementProcessor & SQLiteDatabase & SQLiteDatabaseLogger;
 
 export interface AttachementProcessor {
   serializer?: BinarySerializer;
@@ -29,6 +30,18 @@ export interface AttachementProcessor {
   btoa?: (data: any) => any;
 }
 
+export interface SqlLogOptions {
+  // sql params to log;
+  // default log all params;
+  params?: any[];
+
+  notlogResult?: boolean;
+}
+export interface SQLiteDatabaseLogger {
+  query(sql: string, params?: any[], opt?: SqlLogOptions): Promise<SQLiteQueryResult>;
+  run(sql: string, params?: any[], opt?: SqlLogOptions): Promise<SQLiteExecuteResult>;
+  execute(sql: string, opt?: SqlLogOptions): Promise<void>;
+}
 /**
  * Abstract SQLite database connection interface
  * Defines basic methods for interacting with SQLite database
@@ -185,7 +198,7 @@ export interface OpenDatabaseOptions extends OpenConfig {
 
 export type UserOpenDatabaseResult =
   | {
-      db: SQLiteDatabase;
+      db: SQLiteAdapter;
       transactionQueue?: TransactionQueue;
     }
   | {

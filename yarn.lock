@@ -1168,17 +1168,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@capacitor-community/sqlite@npm:^5.0.0":
-  version: 5.7.4
-  resolution: "@capacitor-community/sqlite@npm:5.7.4"
-  dependencies:
-    jeep-sqlite: "npm:^2.7.2"
-  peerDependencies:
-    "@capacitor/core": ^5.0.0
-  checksum: 10c0/0b2bc3b633fa6b3e2990808ec0f86e3e7c2bd54f2ca09f819e708c6b80bbaf94b4c324dc02ef3f9224af16401a815ed16856c0725ccd347777d1baaa8c1738c0
-  languageName: node
-  linkType: hard
-
 "@capacitor-community/sqlite@npm:^7.0.0":
   version: 7.0.0
   resolution: "@capacitor-community/sqlite@npm:7.0.0"
@@ -7390,7 +7379,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-constants@npm:~17.0.5, expo-constants@npm:~17.0.8":
+"expo-constants@npm:17.0.8, expo-constants@npm:~17.0.5, expo-constants@npm:~17.0.8":
   version: 17.0.8
   resolution: "expo-constants@npm:17.0.8"
   dependencies:
@@ -7418,6 +7407,7 @@ __metadata:
     babel-plugin-module-resolver: "npm:^5.0.2"
     debug: "npm:^4.4.0"
     expo: "npm:~52.0.42"
+    expo-constants: "npm:17.0.8"
     expo-font: "npm:~13.0.4"
     expo-linking: "npm:~7.0.5"
     expo-router: "npm:~4.0.19"
@@ -7471,6 +7461,7 @@ __metadata:
     babel-plugin-module-resolver: "npm:^5.0.2"
     debug: "npm:^4.4.0"
     expo: "npm:~52.0.42"
+    expo-constants: "npm:17.0.8"
     expo-font: "npm:~13.0.4"
     expo-linking: "npm:~7.0.5"
     expo-router: "npm:~4.0.19"
@@ -13193,10 +13184,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "pouchdb-adapter-capacitor-sqlite@workspace:packages/pouchdb-adapter-capacitor-sqlite"
   dependencies:
-    "@capacitor-community/sqlite": "npm:^5.0.0"
     "@types/pouchdb-core": "npm:^7.0.15"
     pouchdb-adapter-sqlite-core: "workspace:^"
     typescript: "npm:^5.3.3"
+  peerDependencies:
+    "@capacitor-community/sqlite": ^7.0.0
   languageName: unknown
   linkType: soft
 
@@ -13207,10 +13199,10 @@ __metadata:
     "@types/blob-to-buffer": "npm:^1"
     "@types/pouchdb-core": "npm:^7.0.15"
     blob-to-buffer: "npm:^1.2.9"
-    expo-sqlite: "npm:~15.1.4"
     pouchdb-adapter-sqlite-core: "workspace:^"
     typescript: "npm:^5.8.2"
   peerDependencies:
+    expo-sqlite: ~15.1.4
     react-native-blob-jsi-helper: "*"
     react-native-quick-base64: "*"
   languageName: unknown
@@ -13232,10 +13224,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "pouchdb-adapter-opsqlite@workspace:packages/pouchdb-adapter-opsqlite"
   dependencies:
-    "@op-engineering/op-sqlite": "npm:^11.4.8"
     pouchdb-adapter-sqlite-core: "workspace:^"
     typescript: "npm:^5.3.3"
   peerDependencies:
+    "@op-engineering/op-sqlite": ^11.4.8
     react-native-blob-jsi-helper: "*"
   languageName: unknown
   linkType: soft
@@ -13276,6 +13268,7 @@ __metadata:
     patch-package: "npm:^8.0.0"
     postinstall-postinstall: "npm:^2.1.0"
     prettier: "npm:^3.5.3"
+    typescript: "npm:^5.8.3"
     typescript-eslint: "npm:^8.29.0"
   languageName: unknown
   linkType: soft
@@ -16272,7 +16265,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:>=3 < 6":
+"typescript@npm:>=3 < 6, typescript@npm:^5.8.3":
   version: 5.8.3
   resolution: "typescript@npm:5.8.3"
   bin:
@@ -16312,7 +16305,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A>=3 < 6#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@npm%3A>=3 < 6#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.8.3#optional!builtin<compat/typescript>":
   version: 5.8.3
   resolution: "typescript@patch:typescript@npm%3A5.8.3#optional!builtin<compat/typescript>::version=5.8.3&hash=5786d5"
   bin:

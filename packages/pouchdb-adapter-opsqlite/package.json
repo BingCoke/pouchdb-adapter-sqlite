@@ -36,11 +36,11 @@
   "author": "bingcoke",
   "license": "MIT",
   "devDependencies": {
-    "@op-engineering/op-sqlite": "^11.4.8",
     "pouchdb-adapter-sqlite-core": "workspace:^",
     "typescript": "^5.3.3"
   },
   "peerDependencies": {
+    "@op-engineering/op-sqlite": "^11.4.8",
     "react-native-blob-jsi-helper": "*"
   }
 }

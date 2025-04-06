@@ -36,8 +36,10 @@
   "homepage": "https://github.com/BingCoke/pouchdb-adapter-sqlite",
   "author": "bingcoke",
   "license": "MIT",
+  "peerDependencies": {
+    "@capacitor-community/sqlite": "^7.0.0"
+  },
   "devDependencies": {
-    "@capacitor-community/sqlite": "^5.0.0",
     "@types/pouchdb-core": "^7.0.15",
     "pouchdb-adapter-sqlite-core": "workspace:^",
     "typescript": "^5.3.3"
