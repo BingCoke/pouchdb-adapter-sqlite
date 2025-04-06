@@ -27,10 +27,10 @@ Currently supported or planned SQLite implementations:
 
 ## Upcoming Features
 
-1. **More Efficient Attachment Handling**
+- [x]  **More Efficient Attachment Handling**
    Currently, the adapter uses pouchdb's official adapter-util to first convert data to binary string format. However, some SQLite implementations require converting this binary string to Uint8Array for storage. This creates unnecessary overhead when the input data is already in Uint8Array format. We plan to optimize this conversion pipeline to improve performance.
 
-2. **Extended SQLite Support**
+- [ ] **Extended SQLite Support**
    We welcome community contributions through issues and pull requests to add support for additional SQLite implementations. Our roadmap includes expanding compatibility with more SQLite variants.
 
 ## Usage
@@ -88,8 +88,8 @@ yarn add --dev babel-plugin-module-resolver
 
 Then, in your babel.config.js, add the plugin to swap the crypto, stream and buffer dependencies:
 
-```json
- module.exports = {
+```js
+module.exports = {
   presets: ['module:metro-react-native-babel-preset'],
   plugins: [
     [
