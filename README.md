@@ -57,84 +57,15 @@ See the example directory for additional usage examples. Database-related code c
 To add support for other SQLite implementations, simply create an adapter that implements the abstract database interface.
 
 ## Attachment Storage and Retrieval Configuration
+This release includes optimizations for binary data processing across different SQLite databases. If you need to:
 
- Due to differences across SQLite implementations, platforms, and versions - and potentially requiring different plugins - these options are left for users to configure explicitly. We believe it's important for users to understand how attachment storage and retrieval works.
+Adapt your SQLite implementation
 
-### Attachment Storage Flow
-When storing an attachment via `put_attachment`, the input data can be a string, blob, or ArrayBuffer. The pouchdb-adapter-util converts this data into a binary string. Before storing in SQLite, we call the `serialize` function to transform the binary string, with the result being stored in SQLite.
+Resolve binary storage issues with specific SQLite versions
 
-Note: The current process where pouchdb-adapter-util first converts data to binary string and then sqlite-core transforms it again via serializer may not be the most efficient approach. We plan to optimize this conversion process in future versions.
+Configure attachment-related settings
 
-![att_store](./docs/imags/att_store.png)
-
-### Attachment Retrieval Flow
-When retrieving an attachment, data is read from SQLite in the format determined by the `serialize` function. The `deserialize` function converts this data back to the required format, which is then processed by either `btoa` or `createBlob`. If these functions aren't provided, default implementations are used (which expect binary string input).
-
-Important: `btoa` must return a base64 string, and `createBlob` must return a Blob object! Incorrect return types may cause database replication failures if your application heavily relies on attachment functionality.
-
-![att_read](./docs/imags/att_read.png)
-
-### Serializer Configuration
-The `serializer` option allows customization of binary data serialization/deserialization behavior. Data is serialized when stored in SQLite and deserialized when retrieved.
-
-Interface definition:
-```typescript
-export interface BinarySerializer {
-    // Input is raw binary string
-    serialize(data: any): any;
-    // Input is serialized data (return value from serialize)
-    deserialize(data: any): any;
-}
-```
-
-Example usage for capacitor-sqlite (which has escaping issues with certain characters):
-```typescript
-import { escapeBlob, unescapeBlob } from 'pouchdb-adapter-sqlite-core';
-export const db = new DB('capp2', {
-  adapter: 'sqlite',
-  sqliteImplementation: 'capicator',
-  serializer: {
-    serialize: (data) => escapeBlob(data),
-    deserialize: (data) => unescapeBlob(data),
-  },
-});
-```
-
-Example for expo-sqlite:
-expo-sqlite requires Uint8Array for binary data storage and needs a custom serializer to handle this requirement.
-```typescript
-serializer: {
-  serialize: (data: string) => {
-    const binary: string = data;
-    const buffer = Buffer.from(binary, 'binary');
-    const array = Uint8Array.from(buffer);
-    return array;
-  },
-  deserialize: (data: Uint8Array) => data,
-},
-```
-
-### btoa and createBlob
-The `btoa` option customizes base64 encoding behavior, while `createBlob` customizes Blob creation. If using a custom serializer that doesn't produce binary strings, you must implement these functions.
-
-```typescript
-btoa?: (binary: any) => any;
-createBlob?: (binary: any, type: any) => any;
-```
-
-React Native has limited Blob support which can cause issues when synchronizing attachments across multiple databases. As mentioned earlier, attachment synchronization heavily depends on createBlob implementation. In such cases, you need to construct Blob objects manually.
-
-If you don't implement custom Blob construction, you may encounter errors like: `Creating blobs from 'ArrayBuffer' and 'ArrayBufferView' are not supported`
-
-```typescript
-import { getBlobForArrayBuffer } from 'react-native-blob-jsi-helper';
-createBlob: (binary: string, type: string) => {
-  const buffer = Buffer.from(binary, 'binary');
-  const blob = getBlobForArrayBuffer(buffer.buffer);
-  return blob;
-},
-```
-
+Please refer to this documentation for detailed guidance.[about attachment](./docs/attachment.md)
 
 ## Known Issues and Workarounds
 
@@ -143,5 +74,37 @@ When using this adapter with PouchDB 9.0.0 in React Native, you may encounter er
 To fix it you just need to patch pouchdb-errors library with this version: https://github.com/pouchdb/pouchdb/blob/master/packages/node_modules/pouchdb-errors/src/index.js
 You can use patch-package for this. https://www.npmjs.com/package/patch-package
 
+### React Native Pollyfills
+If you are using React Native, you may need to include the following pollyfills: `react-native-quick-crypto`, `readable-stream`, `@craftzdog/react-native-buffer`
+```shell
+yarn add reac-native-quick-crypto readable-stream @craftzdog/react-native-buffer
+```
+
+You need to install babel-plugin-module-resolver, it's a babel plugin that will alias any imports in the code with the values you pass to it. It tricks any module that will try to import certain dependencies with the native versions we require for React Native.
+
+```shell
+yarn add --dev babel-plugin-module-resolver
+```
+
+Then, in your babel.config.js, add the plugin to swap the crypto, stream and buffer dependencies:
+
+```json
+ module.exports = {
+  presets: ['module:metro-react-native-babel-preset'],
+  plugins: [
+    [
+      'module-resolver',
+      {
+        alias: {
+          'crypto': 'react-native-quick-crypto',
+          'stream': 'readable-stream',
+          'buffer': '@craftzdog/react-native-buffer',
+        },
+      },
+   ],
+    ...
+  ],
+};
+```
 ## Acknowledgments
 Special thanks to @craftzdog for the open-source project: [pouchdb-adapter-react-native-sqlite](https://github.com/craftzdog/pouchdb-adapter-react-native-sqlite). This project is built upon their implementation.

@@ -13203,8 +13203,8 @@ __metadata:
     typescript: "npm:^5.8.2"
   peerDependencies:
     expo-sqlite: ~15.1.4
-    react-native-blob-jsi-helper: "*"
-    react-native-quick-base64: "*"
+    react-native-blob-jsi-helper: ^0.3.1
+    react-native-quick-base64: ^2.1.2
   languageName: unknown
   linkType: soft
 

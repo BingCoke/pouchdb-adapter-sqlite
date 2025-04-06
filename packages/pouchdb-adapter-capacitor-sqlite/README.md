@@ -22,25 +22,12 @@ PouchDB.plugin(SqlitePlugin).plugin(CapacitorSQLPlugin);
 
 const db = new PouchDB('mydb', {
   adapter: 'sqlite',
-  sqliteImplementation: 'capacitor',
-  // Optional serializer for binary data
-  serializer: {
-    serialize: (data) => escapeBlob(data),
-    deserialize: (data) => unescapeBlob(data),
-  }
+  sqliteImplementation: 'capacitor'
 });
 ```
 
 ## Configuration Options
 
 - `sqliteImplementation`: Must be set to 'capacitor'
-- `serializer`: Optional custom serializer for binary data
-  - `serialize`: Function to transform data before storage
-  - `deserialize`: Function to transform data after retrieval
-
-## Notes
-
-1. Requires `@capacitor-community/sqlite` v5.0.0 or higher
-2. Binary data handling may require custom serialization due to SQLite escaping requirements
 
 See the [main project README](https://github.com/BingCoke/pouchdb-adapter-sqlite/) for more details on attachment handling and common issues.
