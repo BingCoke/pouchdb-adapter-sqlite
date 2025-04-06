@@ -318,7 +318,6 @@ async function sqliteBulkDocs(
    * Fetch existing documents
    */
   async function fetchExistingDocs(): Promise<void> {
-    console.log('fetch...');
     if (!docInfos.length) return;
 
     for (const docInfo of docInfos) {
@@ -341,7 +340,6 @@ async function sqliteBulkDocs(
    */
   async function saveAttachment(digest: string, data: any) {
     logger.debug('Save attachment:', digest, data);
-    console.log('saving..');
     let sql = 'SELECT digest FROM ' + ATTACH_STORE + ' WHERE digest=?';
     const result = await db.query(sql, [digest]);
     if (result.values && result.values.length) return;
