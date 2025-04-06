@@ -16,7 +16,7 @@ Note: The current process where pouchdb-adapter-util first converts data to bina
 
 > update: we have optimized the conversion process and removed the unnecessary step of converting data to binary string. The data is now directly stored in some SQLite.
 > The serializer will process blob, ArrayBuffer, and base64 data, converting it into storage-compatible formats for SQLite.
-![att_store](./docs/imags/att_store.png)
+![att_store](./imags/att_store.png)
 
 ## Attachment Retrieval Flow
 When retrieving an attachment, data is read from SQLite in the format determined by the `serialize` function. 
@@ -24,7 +24,7 @@ The `deserialize` function converts this data back to the required format, which
 
 Important: `btoa` must return a base64 string, and `createBlob` must return a Blob object! Incorrect return types may cause database replication failures if your application heavily relies on attachment functionality.
 
-![att_read](./docs/imags/att_read.png)
+![att_read](./imags/att_read.png)
 
 ## Serializer Configuration
 The `serializer` option allows customization of binary data serialization/deserialization behavior. Data is serialized when stored in SQLite and deserialized when retrieved.
