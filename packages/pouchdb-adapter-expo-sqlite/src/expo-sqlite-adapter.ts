@@ -1,17 +1,18 @@
 import * as SQLite from 'expo-sqlite';
 import {
-  SQLiteDatabase,
   SQLiteQueryResult,
   SQLiteExecuteResult,
   UserOpenDatabaseResult,
+  SQLiteAdapter,
 } from 'pouchdb-adapter-sqlite-core/interface';
 import { logger } from './logger';
+import { createBlob, serializer, btoa } from './binaryProcess';
 
 /**
  * Expo SQLite Adapter Class
  * Implements SQLiteDatabase interface, converts Expo SQLite API to generic interface
  */
-export class ExpoSQLiteAdapter implements SQLiteDatabase {
+export class ExpoSQLiteAdapter implements SQLiteAdapter {
   private db: SQLite.SQLiteDatabase;
 
   /**
@@ -30,7 +31,7 @@ export class ExpoSQLiteAdapter implements SQLiteDatabase {
    */
   async query(sql: string, params: any[] = []): Promise<SQLiteQueryResult> {
     logger('query sql: %o params %o', sql, params);
-    const resutlSet = await this.db.getAllAsync(sql, params);
+    const resutlSet = await this.db.getAllAsync(sql);
 
     return {
       values: resutlSet || [],
@@ -44,8 +45,9 @@ export class ExpoSQLiteAdapter implements SQLiteDatabase {
    * @returns Execution result
    */
   async run(sql: string, params: any[] = []): Promise<SQLiteExecuteResult> {
-    logger('run sql: %o params', sql, params);
+    logger('run sql: %o params', sql);
     const resultSet = await this.db.runAsync(sql, params);
+    logger('run sql: %o success!', sql);
     return {
       changes: {
         changes: resultSet.changes,
@@ -102,6 +104,9 @@ export class ExpoSQLiteAdapter implements SQLiteDatabase {
       throw err;
     }
   }
+  serializer = serializer;
+  createBlob = createBlob;
+  btoa = btoa;
 }
 
 /**

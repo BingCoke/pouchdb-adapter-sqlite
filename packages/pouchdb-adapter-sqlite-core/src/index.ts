@@ -1,7 +1,7 @@
 import SqlPouch from './core';
 import { registerSQLiteImplementation } from './openDatabase';
 import { SQLiteImplementationFactory, OpenConfig } from './interfaces';
-export * from './utils';
+export * from './libUtils';
 
 /* eslint-disable @typescript-eslint/no-namespace */
 declare global {

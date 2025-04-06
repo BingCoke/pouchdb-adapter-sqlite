@@ -21,6 +21,14 @@ export interface SQLiteExecuteResult {
   };
 }
 
+export type SQLiteAdapter = AttachementProcessor & SQLiteDatabase;
+
+export interface AttachementProcessor {
+  serializer?: BinarySerializer;
+  createBlob?: (binary: any, type: any) => any;
+  btoa?: (data: any) => any;
+}
+
 /**
  * Abstract SQLite database connection interface
  * Defines basic methods for interacting with SQLite database
@@ -108,8 +116,15 @@ export interface TransactionQueue {
 }
 
 export interface BinarySerializer {
-  serialize(data: any): any;
-  deserialize(data: any): any;
+  /**
+   * data is processAttachemnt's Response which may be a Blob or ArrayBuffer or binaryString
+   * the return value will be store in sqlite
+   **/
+  serialize(data: any): Promise<any>;
+  /**
+   * the data read from sqlite
+   */
+  deserialize(data: any): Promise<any>;
 }
 export interface OpenConfig {
   adapter: 'sqlite';
@@ -181,7 +196,7 @@ export type UserOpenDatabaseResult =
  */
 export type OpenDatabaseResult =
   | {
-      db: SQLiteDatabase;
+      db: SQLiteAdapter;
       transactionQueue: TransactionQueue;
     }
   | {

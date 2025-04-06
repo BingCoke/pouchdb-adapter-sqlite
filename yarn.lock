@@ -3745,6 +3745,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/blob-to-buffer@npm:^1":
+  version: 1.2.2
+  resolution: "@types/blob-to-buffer@npm:1.2.2"
+  dependencies:
+    "@types/node": "npm:*"
+  checksum: 10c0/7a69e6b864145fef38e4e0981000b811f5f9bcd8b80a6bc4cf9c13c4a5bee9f3638be29ef2cf2f9a466056198a6465f8e5e623a994cad4a170885ec2523f0dfc
+  languageName: node
+  linkType: hard
+
 "@types/debug@npm:*, @types/debug@npm:^4.1.8":
   version: 4.1.12
   resolution: "@types/debug@npm:4.1.12"
@@ -5141,6 +5150,13 @@ __metadata:
     inherits: "npm:^2.0.4"
     readable-stream: "npm:^3.4.0"
   checksum: 10c0/02847e1d2cb089c9dc6958add42e3cdeaf07d13f575973963335ac0fdece563a50ac770ac4c8fa06492d2dd276f6cc3b7f08c7cd9c7a7ad0f8d388b2a28def5f
+  languageName: node
+  linkType: hard
+
+"blob-to-buffer@npm:^1.2.9":
+  version: 1.2.9
+  resolution: "blob-to-buffer@npm:1.2.9"
+  checksum: 10c0/ff8d3327f030fcd98b28c7557158721bc36b2102452bb4d8808d7bf497a6feee34623a40f80ec8a097851c866369fc76ef948cee4e78373f34738b70ab3f8cf6
   languageName: node
   linkType: hard
 
@@ -13188,10 +13204,15 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "pouchdb-adapter-expo-sqlite@workspace:packages/pouchdb-adapter-expo-sqlite"
   dependencies:
+    "@types/blob-to-buffer": "npm:^1"
     "@types/pouchdb-core": "npm:^7.0.15"
+    blob-to-buffer: "npm:^1.2.9"
     expo-sqlite: "npm:~15.1.4"
     pouchdb-adapter-sqlite-core: "workspace:^"
     typescript: "npm:^5.8.2"
+  peerDependencies:
+    react-native-blob-jsi-helper: "*"
+    react-native-quick-base64: "*"
   languageName: unknown
   linkType: soft
 
@@ -13214,6 +13235,8 @@ __metadata:
     "@op-engineering/op-sqlite": "npm:^11.4.8"
     pouchdb-adapter-sqlite-core: "workspace:^"
     typescript: "npm:^5.3.3"
+  peerDependencies:
+    react-native-blob-jsi-helper: "*"
   languageName: unknown
   linkType: soft
 
@@ -13230,6 +13253,7 @@ __metadata:
     pouchdb-binary-utils: "npm:^9.0.0"
     pouchdb-errors: "npm:^9.0.0"
     pouchdb-json: "npm:^9.0.0"
+    pouchdb-md5: "npm:^9.0.0"
     pouchdb-merge: "npm:^9.0.0"
     pouchdb-utils: "npm:^9.0.0"
     typescript: "npm:^5.3.3"
@@ -13389,7 +13413,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pouchdb-md5@npm:9.0.0":
+"pouchdb-md5@npm:9.0.0, pouchdb-md5@npm:^9.0.0":
   version: 9.0.0
   resolution: "pouchdb-md5@npm:9.0.0"
   dependencies:

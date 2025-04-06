@@ -32,12 +32,18 @@
   "homepage": "https://github.com/BingCoke/pouchdb-adapter-sqlite",
   "author": "bingcoke",
   "dependencies": {
+    "blob-to-buffer": "^1.2.9",
     "expo-sqlite": "~15.1.4"
   },
   "devDependencies": {
+    "@types/blob-to-buffer": "^1",
     "@types/pouchdb-core": "^7.0.15",
     "pouchdb-adapter-sqlite-core": "workspace:^",
     "typescript": "^5.8.2"
   },
-  "packageManager": "yarn@4.7.0"
+  "packageManager": "yarn@4.7.0",
+  "peerDependencies": {
+    "react-native-blob-jsi-helper": "*",
+    "react-native-quick-base64": "*"
+  }
 }

@@ -1,16 +1,17 @@
 import type {
-  SQLiteDatabase,
   SQLiteQueryResult,
   SQLiteExecuteResult,
+  SQLiteAdapter,
 } from 'pouchdb-adapter-sqlite-core/interface';
 import { DB, open } from '@op-engineering/op-sqlite';
 import { logger } from './logger';
+import { createBlob } from './processBinary';
 
 /**
  * OPSQLite adapter class
  * Implements SQLiteDatabase interface, converts OPSQLite API to generic interface
  */
-export class OPSQLiteAdapter implements SQLiteDatabase {
+export class OPSQLiteAdapter implements SQLiteAdapter {
   private db: DB;
 
   /**
@@ -20,6 +21,8 @@ export class OPSQLiteAdapter implements SQLiteDatabase {
   constructor(db: DB) {
     this.db = db;
   }
+
+  createBlob = createBlob;
 
   /**
    * Execute SQL query and return result set

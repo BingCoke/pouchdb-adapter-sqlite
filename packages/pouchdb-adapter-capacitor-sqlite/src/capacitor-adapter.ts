@@ -4,18 +4,19 @@ import {
   type SQLiteDBConnection,
 } from '@capacitor-community/sqlite';
 import {
-  SQLiteDatabase,
   SQLiteQueryResult,
   SQLiteExecuteResult,
   UserOpenDatabaseResult,
+  SQLiteAdapter,
 } from 'pouchdb-adapter-sqlite-core/interface';
+import { escapeSerializer } from 'pouchdb-adapter-sqlite-core';
 import { logger } from './logger';
 
 /**
  * Capacitor SQLite Adapter class
  * Implements SQLiteDatabase interface, converts Capacitor SQLite API to generic interface
  */
-export class CapacitorSQLiteAdapter implements SQLiteDatabase {
+export class CapacitorSQLiteAdapter implements SQLiteAdapter {
   private connection: SQLiteDBConnection;
 
   /**
@@ -90,6 +91,7 @@ export class CapacitorSQLiteAdapter implements SQLiteDatabase {
     logger('rollback transaction');
     await this.connection.rollbackTransaction();
   }
+  serializer = escapeSerializer;
 }
 
 /**

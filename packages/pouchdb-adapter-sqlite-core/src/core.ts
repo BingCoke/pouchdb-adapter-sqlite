@@ -30,8 +30,15 @@ import {
 } from './utils';
 
 import openDatabase, { closeDatabase } from './openDatabase';
-import { OpenDatabaseOptions, SQLiteDatabase, TransactionQueue } from './interfaces';
+import {
+  BinarySerializer,
+  OpenDatabaseOptions,
+  SQLiteAdapter,
+  SQLiteDatabase,
+  TransactionQueue,
+} from './interfaces';
 import { logger } from './logger';
+import { defaultSerializer } from './libUtils';
 
 // These indexes cover the basis for most allDocs queries
 const BY_SEQ_STORE_DELETED_INDEX_SQL =
@@ -152,7 +159,7 @@ function fetchAttachmentsIfNecessary(
 function SqlPouch(opts: OpenDatabaseOptions, cb: (err: any) => void) {
   // @ts-ignore
   const api = this as any;
-  let db: SQLiteDatabase;
+  let db: SQLiteAdapter;
   // @ts-ignore
   let txnQueue: TransactionQueue;
   let instanceId: string;
@@ -160,13 +167,10 @@ function SqlPouch(opts: OpenDatabaseOptions, cb: (err: any) => void) {
   api.auto_compaction = false;
 
   api._name = opts.name;
-  const serializer = opts.serializer;
-  api.serializer = opts.serializer;
 
-  // @ts-ignore
-  const createBlob = opts.createBlob ?? binStringToBlob;
-  // @ts-ignore
-  const btoa = opts.btoa ?? defaultBtoa;
+  let serializer: BinarySerializer;
+  let createBlob: any;
+  let btoa: any;
   logger.debug('Creating SqlPouch instance: %s', api._name);
 
   const sqlOpts = Object.assign({}, opts, { name: opts.name + '.db' });
@@ -174,6 +178,12 @@ function SqlPouch(opts: OpenDatabaseOptions, cb: (err: any) => void) {
     .then((openDBResult) => {
       if ('db' in openDBResult) {
         db = openDBResult.db;
+
+        serializer = opts.serializer ?? db.serializer ?? defaultSerializer;
+        createBlob = opts.createBlob ?? db.createBlob ?? binStringToBlob;
+        btoa = opts.btoa ?? db.btoa ?? defaultBtoa;
+        api.serializer = serializer;
+
         txnQueue = openDBResult.transactionQueue;
         logger.debug('Setting up database');
         setup(cb);

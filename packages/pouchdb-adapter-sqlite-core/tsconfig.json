@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "es2018",
     "module": "ESNext",
+    "moduleResolution": "bundler",
     "declaration": true,
     "outDir": "./lib",
     "strict": true,

@@ -27,10 +27,10 @@ Currently supported or planned SQLite implementations:
 
 ## Upcoming Features
 
-1. **More Efficient Attachment Handling**  
+1. **More Efficient Attachment Handling**
    Currently, the adapter uses pouchdb's official adapter-util to first convert data to binary string format. However, some SQLite implementations require converting this binary string to Uint8Array for storage. This creates unnecessary overhead when the input data is already in Uint8Array format. We plan to optimize this conversion pipeline to improve performance.
 
-2. **Extended SQLite Support**  
+2. **Extended SQLite Support**
    We welcome community contributions through issues and pull requests to add support for additional SQLite implementations. Our roadmap includes expanding compatibility with more SQLite variants.
 
 ## Usage
@@ -49,6 +49,12 @@ const db = new DB('example', {
   sqliteImplementation: 'expo-sqlite',
 });
 ```
+
+## More Examples
+See the example directory for additional usage examples. Database-related code can be found in the db subdirectory.
+
+## Extending Support
+To add support for other SQLite implementations, simply create an adapter that implements the abstract database interface.
 
 ## Attachment Storage and Retrieval Configuration
 
@@ -129,11 +135,6 @@ createBlob: (binary: string, type: string) => {
 },
 ```
 
-## More Examples
-See the example directory for additional usage examples. Database-related code can be found in the db subdirectory.
-
-## Extending Support
-To add support for other SQLite implementations, simply create an adapter that implements the abstract database interface.
 
 ## Known Issues and Workarounds
 

@@ -1,4 +1,4 @@
-import { preprocessAttachments, isLocalId, processDocs, parseDoc } from 'pouchdb-adapter-utils';
+import { isLocalId, processDocs, parseDoc } from 'pouchdb-adapter-utils';
 import { compactTree } from 'pouchdb-merge';
 import { safeJsonParse, safeJsonStringify } from 'pouchdb-json';
 import { MISSING_STUB, createError } from 'pouchdb-errors';
@@ -8,6 +8,7 @@ import { DOC_STORE, BY_SEQ_STORE, ATTACH_STORE, ATTACH_AND_SEQ_STORE } from './c
 import { select, stringifyDoc, compactRevs, handleSQLiteError, escapeBlob } from './utils';
 import { BinarySerializer, SQLiteDatabase } from './interfaces';
 import { logger } from './logger';
+import { preprocessAttachments } from './processAttachment';
 
 /**
  * Document info interface
@@ -313,6 +314,7 @@ async function sqliteBulkDocs(
    * Fetch existing documents
    */
   async function fetchExistingDocs(): Promise<void> {
+    console.log('fetch...');
     if (!docInfos.length) return;
 
     for (const docInfo of docInfos) {
@@ -335,14 +337,20 @@ async function sqliteBulkDocs(
    */
   async function saveAttachment(digest: string, data: any) {
     logger.debug('Save attachment:', digest, data);
+    console.log('saving..');
     let sql = 'SELECT digest FROM ' + ATTACH_STORE + ' WHERE digest=?';
     const result = await db.query(sql, [digest]);
     if (result.values && result.values.length) return;
     const escaped = serializer ? 1 : 0;
     if (serializer) {
-      data = serializer.serialize(data);
+      logger.debug('Serializing attachment');
+      data = await serializer.serialize(data).catch((e) => {
+        logger.error('Error serializing attachment', e);
+      });
+      //logger.debug('Serializing attachment success', data);
     }
     sql = 'INSERT INTO ' + ATTACH_STORE + ' (digest, body, escaped) VALUES (?,?,?)';
+    logger.debug('will run sql:', sql);
     await db.run(sql, [digest, data, escaped]);
   }
 
@@ -357,7 +365,6 @@ async function sqliteBulkDocs(
   // Execute operations in transaction
   await transaction(async (txn: SQLiteDatabase) => {
     await verifyAttachments();
-
     try {
       db = txn;
       await fetchExistingDocs();
