@@ -1,5 +1,5 @@
 import { BinarySerializer } from './interfaces';
-import pouchdbBinaryUtils from 'pouchdb-binary-utils';
+import { blobOrBufferToBinaryString } from 'pouchdb-binary-utils';
 
 export function escapeBlob(str: string) {
   return str
@@ -22,7 +22,7 @@ export const parseDataToBinary = async (data: any) => {
     return data;
   }
   const promise = new Promise<string>((resolve) => {
-    pouchdbBinaryUtils.blobOrBufferToBinaryString(data, (binstring: string) => {
+    blobOrBufferToBinaryString(data, (binstring: string) => {
       resolve(binstring);
     });
   });
