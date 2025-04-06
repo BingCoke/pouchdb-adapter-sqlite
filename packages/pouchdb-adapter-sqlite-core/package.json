@@ -1,6 +1,6 @@
 {
   "name": "pouchdb-adapter-sqlite-core",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "PouchDB adapter using SQLite as its data store - core implementation",
   "main": "./lib/index.js",
   "exports": {
