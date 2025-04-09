@@ -118,7 +118,7 @@ export const expoSQLiteFactory = {
       logger('open database %o', options);
 
       // Ensure database name has correct format
-      const dbName = options.name.endsWith('.db') ? options.name : `${options.name}.db`;
+      const dbName = options.name;
 
       // Open database
       const db = await SQLite.openDatabaseAsync(dbName);
