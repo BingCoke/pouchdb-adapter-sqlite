@@ -27,7 +27,7 @@ PouchDB.plugin(SqlitePlugin).plugin(OPSQLPlugin);
 
 const db = new PouchDB('mydb', {
   adapter: 'sqlite',
-  sqliteImplementation: 'op-sqlite',
+  sqliteImplementation: 'opsqlite',
 });
 ```
 
