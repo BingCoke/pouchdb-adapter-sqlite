@@ -1176,6 +1176,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@capacitor-community/sqlite@npm:^8.0.0":
+  version: 8.1.0
+  resolution: "@capacitor-community/sqlite@npm:8.1.0"
+  dependencies:
+    jeep-sqlite: "npm:^2.7.2"
+  peerDependencies:
+    "@capacitor/core": ">=8.0.0"
+  checksum: 10c0/ee544907fdf0569db65f77cfef8256f28dab0b53ed2c05f92acdda703ce5d0fe54b383b41cdbd15550f959f2e680a07ed4dd3ec472fd675be1ee8cf65a472eda
+  languageName: node
+  linkType: hard
+
 "@capacitor/android@npm:^7.2.0":
   version: 7.4.3
   resolution: "@capacitor/android@npm:7.4.3"
@@ -13364,11 +13375,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "pouchdb-adapter-capacitor-sqlite@workspace:packages/pouchdb-adapter-capacitor-sqlite"
   dependencies:
+    "@capacitor-community/sqlite": "npm:^8.0.0"
     "@types/pouchdb-core": "npm:^7.0.15"
     pouchdb-adapter-sqlite-core: "workspace:^"
     typescript: "npm:^5.3.3"
   peerDependencies:
-    "@capacitor-community/sqlite": ^7.0.0
+    "@capacitor-community/sqlite": ^8.0.0
   languageName: unknown
   linkType: soft
 
